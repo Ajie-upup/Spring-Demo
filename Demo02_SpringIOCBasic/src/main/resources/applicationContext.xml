@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--  导入外部配置文件  -->
+    <import resource="classpath:applicationContext-service.xml"></import>
+
+    <!--<bean id="userDao" class="com.ajie.dao.impl.UserDaoImpl" scope="prototype" init-method="init"
+          destroy-method="destroy"></bean>
+
+    &lt;!&ndash;  静态工厂创建 bean 对象  &ndash;&gt;
+    <bean id="userDao2" class="com.ajie.util.StaticFactoryBean" factory-method="createUserDao"></bean>
+
+    &lt;!&ndash;   普通工厂创建对象 &ndash;&gt;
+    <bean id="dynamicFactoryBean" class="com.ajie.util.DynamicFactoryBean"></bean>
+    <bean id="userDao3" factory-bean="dynamicFactoryBean" factory-method="createUserDao"></bean>-->
+
+    <!--  使用 构造方法注入 bean 对象  -->
+    <!--<bean id="userDao" class="com.ajie.dao.impl.UserDaoImpl"></bean>
+    <bean id="userService" class="com.ajie.service.impl.UserServiceImpl">
+        &lt;!&ndash; <constructor-arg index="0" type="com.ajie.dao.UserDao" ref="userDao"/>&ndash;&gt;
+        <constructor-arg name="userDao" ref="userDao"/>
+    </bean>-->
+
+    <!--  使用 set 方法注入 bean 对象  -->
+    <!--    <bean id="userDao" class="com.ajie.dao.impl.UserDaoImpl"/>-->
+    <!--    <bean id="userService" class="com.ajie.service.impl.UserServiceImpl2">-->
+    <!--        <property name="userDao" ref="userDao"/>-->
+    <!--    </bean>-->
+
+    <!--  p 命名空间注入，本质上还是 set 方法注入，必须含有 set 方法才能实现  -->
+    <bean id="userDao" class="com.ajie.dao.impl.UserDaoImpl"/>
+    <bean id="userService2" class="com.ajie.service.impl.UserServiceImpl2" p:userDao-ref="userDao">
+        <property name="list">
+            <list>
+                <value>aaa</value>
+                <ref bean="user"></ref>
+            </list>
+        </property>
+
+        <property name="set">
+            <set>
+                <value>bbb</value>
+                <ref bean="user"></ref>
+            </set>
+        </property>
+
+        <property name="array">
+            <array>
+                <value>ccc</value>
+                <ref bean="user"></ref>
+            </array>
+        </property>
+
+        <property name="map">
+            <map>
+                <entry key="k1" value="ddd"></entry>
+                <entry key="k2" value-ref="user"></entry>
+            </map>
+        </property>
+
+        <property name="properties">
+            <props>
+                <prop key="k1">v1</prop>
+                <prop key="k2">v2</prop>
+                <prop key="k3">v3</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="user" class="com.ajie.domain.User">
+        <property name="name" value="jack"/>
+        <property name="age" value="18"/>
+    </bean>
+
+
+</beans>
