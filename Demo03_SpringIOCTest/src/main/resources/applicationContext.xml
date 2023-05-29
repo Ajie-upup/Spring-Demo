@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!--  将数据库的连接交给 springIOC 容器  -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.DriverClassName}"></property>
+        <property name="url" value="${jdbc.URL}"></property>
+        <property name="username" value="${jdbc.Username}"></property>
+        <property name="password" value="${jdbc.Password}"></property>
+    </bean>
+
+    <!--  将 QueryRunner 交给 IOC 容器  -->
+    <bean id="queryRunner" class="org.apache.commons.dbutils.QueryRunner">
+        <constructor-arg name="ds" ref="dataSource"/>
+    </bean>
+
+    <!--  将 AccountDao 交给 IOC 容器  -->
+    <bean id="accountDao" class="com.ajie.dao.impl.AccountDaoImpl">
+        <property name="queryRunner" ref="queryRunner"/>
+    </bean>
+
+    <!--  将 AccountDao 交给 IOC 容器  -->
+    <bean id="accountService" class="com.ajie.service.impl.AccountServiceImpl">
+        <property name="accountDao" ref="accountDao"/>
+    </bean>
+
+</beans>
