@@ -21,12 +21,12 @@
     </bean>
 
     <!--  将 AccountDao 交给 IOC 容器  -->
-    <bean id="accountDao" class="com.ajie.dao.impl.AccountDaoImpl">
+    <bean id="accountDao" class="com.impl.dao.com.ajie.AccountDaoImpl">
         <property name="queryRunner" ref="queryRunner"/>
     </bean>
 
     <!--  将 AccountDao 交给 IOC 容器  -->
-    <bean id="accountService" class="com.ajie.service.impl.AccountServiceImpl">
+    <bean id="accountService" class="com.impl.service.com.ajie.AccountServiceImpl">
         <property name="accountDao" ref="accountDao"/>
     </bean>
 
