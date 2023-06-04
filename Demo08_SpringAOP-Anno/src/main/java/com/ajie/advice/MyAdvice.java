@@ -26,6 +26,7 @@ public class MyAdvice {
      * 前置通知
      */
     @Before("pointcut()")
+    //@Before("MyAdvice.pointcut()")
     public void before() {
         System.out.println("前置通知...");
     }
@@ -34,6 +35,7 @@ public class MyAdvice {
      * 后置通知
      */
     @After("pointcut()")
+    //@After("MyAdvice.pointcut()")
     public void after() {
         System.out.println("后置通知...");
     }

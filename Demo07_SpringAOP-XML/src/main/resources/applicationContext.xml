@@ -8,7 +8,7 @@
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!--  将目标对象交给 IOC 容器  -->
-    <bean id="accountService" class="com.ajie.service.impl.AccountServiceImpl"/>
+    <bean id="accountService" class="com.impl.service.com.ajie.AccountServiceImpl"/>
     <!--  将通知对象交给 IOC 容器  -->
     <bean id="myAdvice" class="com.ajie.advice.MyAdvice"/>
 
